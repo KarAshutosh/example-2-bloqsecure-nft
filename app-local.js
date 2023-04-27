@@ -14,9 +14,9 @@ app.set('views', './views');
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
-app.use('/', require('./routes/home'))
+app.use('/', require('./routes/home-local'))
 
 // Start the server
-app.listen(80, () => {
-  console.log('Server is running on http://localhost:80');
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
 });
