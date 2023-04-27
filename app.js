@@ -1,6 +1,7 @@
 // Import dependencies
 const express = require('express');
 const exphbs = require('express-handlebars');
+const path = require('path');
 
 // Create an instance of Express
 const app = express();
@@ -9,6 +10,8 @@ const app = express();
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
 app.use('/', require('./routes/home'))

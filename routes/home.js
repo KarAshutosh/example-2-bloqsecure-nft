@@ -17,9 +17,9 @@ router.get('/cancel', (req, res) => {
     res.render('cancel', { title: 'Hello World!' });
 });
 
-router.post('/buy', (req, res) => {
-
-    fetch("http://localhost:5000/payment/62fa188609190a14ff23e798", {
+router.post("/buy", async (req, res) => {
+    // fetch("http://payment-api.bloqfin.com/payment/62fa188609190a14ff23e798", {
+    fetch("http://payment.bloqsecure.com/payment/62fa188609190a14ff23e798", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -31,8 +31,8 @@ router.post('/buy', (req, res) => {
                 priceInEth: 0.0001,
                 gasLimit: 0.001,
                 slippageLimit: 0.05,
-                successURL: 'http://localhost:3000/success',
-                cancelURL: 'http://localhost:3000/cancel',
+                successURL: 'http://localhost:5500/User/success.html',
+                cancelURL: 'http://localhost:5500/User/cancel.html',
                 name: "Rare in-App Item",
                 input0: " ",
                 input1: " ",
@@ -54,17 +54,12 @@ router.post('/buy', (req, res) => {
     })
     .then(({ url }) => {
         var stripeURL = url
-        res.redirect(stripeURL);
-        // window.location = url
         // res.json({ url: stripeURL }) 
+        res.status(301).redirect(stripeURL)
     })
-    // .then(({ url }) => {
-    //     window.location = url
-    // })
     .catch(e => {
       console.error(e.error)
     })
-
 });
 
 module.exports = router
